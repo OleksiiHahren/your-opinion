@@ -1,0 +1,62 @@
+{
+  "name": "your-opinion-feedback",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/your-opinion-feedback/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/your-opinion-feedback",
+        "main": "apps/your-opinion-feedback/src/main.ts",
+        "tsConfig": "apps/your-opinion-feedback/tsconfig.app.json",
+        "assets": ["apps/your-opinion-feedback/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/your-opinion-feedback/webpack.config.js"
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/js:node",
+      "options": {
+        "buildTarget": "your-opinion-feedback:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "your-opinion-feedback:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/your-opinion-feedback/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/your-opinion-feedback/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}
